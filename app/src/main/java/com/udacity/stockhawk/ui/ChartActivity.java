@@ -43,13 +43,14 @@ public class ChartActivity extends AppCompatActivity {
         cursor.moveToFirst();
 
         int historyIndex = cursor.getColumnIndex(Contract.Quote.COLUMN_HISTORY);
-        String[] historyRaw = cursor.getString(historyIndex).split("\n");
+        final String[] historyRaw = cursor.getString(historyIndex).split("\n");
         String[] history;
         List<Entry> entries = new ArrayList<>();
 
         for(int i=0; i<historyRaw.length; i++){
             history = historyRaw[i].split(",");
-            entries.add(new Entry(Float.parseFloat(history[0]),Float.parseFloat(history[1])));
+            Timber.d(history[0]);
+            entries.add(new Entry(i,Float.parseFloat(history[1])));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Dates");
@@ -64,13 +65,13 @@ public class ChartActivity extends AppCompatActivity {
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                Date date = new Date((long)value);
-                SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                //The ugliest line of code I've ever written
+                Date date = new Date(Long.parseLong(historyRaw[(int)value].split(",")[0]));
+                SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("yy/MM/dd", Locale.getDefault());
                 Timber.d(shortenedDateFormat.format(date));
                 return shortenedDateFormat.format(date);
             }
         });
-
         chart.invalidate();
         cursor.close();
     }
