@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
 
@@ -70,29 +71,11 @@ public class AddStockDialog extends DialogFragment {
     }
 
     private void addStock() {
-        String stockName = stock.getText().toString();
-        if (isAStock(stockName)) {
-            Activity parent = getActivity();
-            if (parent instanceof MainActivity) {
-                ((MainActivity) parent).addStock(stockName);
-            }
-            dismissAllowingStateLoss();
+        Activity parent = getActivity();
+        if (parent instanceof MainActivity) {
+            ((MainActivity) parent).addStock(stock.getText().toString());
         }
+        dismissAllowingStateLoss();
     }
-
-    private boolean isAStock(String stock){
-        try{
-            if(YahooFinance.get(stock) != null){
-                return true;
-            }else{
-                Toast.makeText(getActivity(), "Stock not found", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }catch(IOException e){
-            Toast.makeText(getActivity(), "Connection Error", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    }
-
 
 }
