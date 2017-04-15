@@ -42,8 +42,8 @@ public class ChartActivity extends AppCompatActivity {
         Cursor cursor = this.getContentResolver().query(getStockUri, null, null, null, null, null);
         cursor.moveToFirst();
 
-        int historyIndex = cursor.getColumnIndex(Contract.Quote.COLUMN_HISTORY);
-        final String[] historyRaw = cursor.getString(historyIndex).split("\n");
+        //int historyIndex = cursor.getColumnIndex(Contract.Quote.COLUMN_HISTORY);
+        final String[] historyRaw = cursor.getString(Contract.Quote.POSITION_HISTORY).split("\n");
         String[] history;
         List<Entry> entries = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class ChartActivity extends AppCompatActivity {
             public String getFormattedValue(float value, AxisBase axis) {
                 //The ugliest line of code I've ever written
                 Date date = new Date(Long.parseLong(historyRaw[(int)value].split(",")[0]));
-                SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("yy/MM/dd", Locale.getDefault());
+                SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("MM/dd", Locale.getDefault());
                 Timber.d(shortenedDateFormat.format(date));
                 return shortenedDateFormat.format(date);
             }
