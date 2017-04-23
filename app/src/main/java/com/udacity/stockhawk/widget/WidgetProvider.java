@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
@@ -25,7 +24,7 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Timber.d("onUpdate");
         for (int appWidgetId : appWidgetIds) {
-            Timber.d("onUpdate" + appWidgetId);
+            Timber.d("onUpdate" + context.getPackageName());
 
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.stock_widget);
             Intent intent = new Intent(context, WidgetService.class);
@@ -34,8 +33,6 @@ public class WidgetProvider extends AppWidgetProvider {
             Intent stockHawkActivityIntent = new Intent(context, MainActivity.class);
             PendingIntent activityPendingIntent = PendingIntent.getActivity(context, 0, stockHawkActivityIntent, 0);
             rv.setPendingIntentTemplate(R.id.stock_list, activityPendingIntent);
-
-            rv.setEmptyView(R.id.stock_list, R.id.empty_view);
 
             appWidgetManager.updateAppWidget(appWidgetId, rv);
         }
@@ -46,7 +43,7 @@ public class WidgetProvider extends AppWidgetProvider {
         Timber.d("onRecive");
         super.onReceive(context, intent);
         if(QuoteSyncJob.ACTION_DATA_UPDATED.equals(intent.getAction())){
-            Timber.d("Data was updated");
+            Timber.d("ACTION_DATA_UPDATED");
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
                     new ComponentName(context, getClass()));

@@ -48,7 +48,7 @@ public class ChartActivity extends AppCompatActivity {
         List<Entry> entries = new ArrayList<>();
 
         for(int i=0; i<historyRaw.length; i++){
-            Timber.d(historyRaw[i]);
+            //Timber.d(historyRaw[i]);
             history = historyRaw[i].split(",");
             //Timber.d(history[0] + " " + history[1]);
             entries.add(new Entry(i,Float.parseFloat(history[1])));
