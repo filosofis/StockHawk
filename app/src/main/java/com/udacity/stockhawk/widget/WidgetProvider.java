@@ -27,11 +27,8 @@ public class WidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             Timber.d("onUpdate" + appWidgetId);
 
-            Intent intent = new Intent(context, WidgetService.class);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.stock_widget);
+            Intent intent = new Intent(context, WidgetService.class);
             rv.setRemoteAdapter(R.id.stock_list, intent);
 
             Intent stockHawkActivityIntent = new Intent(context, MainActivity.class);

@@ -43,7 +43,8 @@ public final class QuoteSyncJob {
 
     static void getQuotes(Context context) {
 
-        YahooFinance.logger.setLevel(Level.OFF);
+        //YahooFinance.logger.setLevel(Level.OFF);
+        //System.setProperty("yahoofinance.baseurl.histquotes", "https://ichart.yahoo.com/table.csv");
         Timber.d("Running sync job");
 
         Calendar from = Calendar.getInstance();

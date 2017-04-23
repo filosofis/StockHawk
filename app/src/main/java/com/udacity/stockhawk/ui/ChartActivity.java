@@ -48,8 +48,9 @@ public class ChartActivity extends AppCompatActivity {
         List<Entry> entries = new ArrayList<>();
 
         for(int i=0; i<historyRaw.length; i++){
+            Timber.d(historyRaw[i]);
             history = historyRaw[i].split(",");
-            Timber.d(history[0]);
+            //Timber.d(history[0] + " " + history[1]);
             entries.add(new Entry(i,Float.parseFloat(history[1])));
         }
 
@@ -68,7 +69,7 @@ public class ChartActivity extends AppCompatActivity {
                 //The ugliest line of code I've ever written
                 Date date = new Date(Long.parseLong(historyRaw[(int)value].split(",")[0]));
                 SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("MM/dd", Locale.getDefault());
-                Timber.d(shortenedDateFormat.format(date));
+                //Timber.d(shortenedDateFormat.format(date));
                 return shortenedDateFormat.format(date);
             }
         });
