@@ -35,5 +35,7 @@
     <string name="title_widget">Widget</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="cd_fab">Add Stock button</string>
+    <string name="cd_dollar">Unit selector</string>
 
 </resources>
